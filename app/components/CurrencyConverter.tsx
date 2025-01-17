@@ -4,11 +4,6 @@ import Image from "next/image";
 import React, { useEffect, useState, useTransition } from "react";
 import { ChevronDown } from "lucide-react";
 
-interface Currency {
-  code: string;
-  flag: string;
-}
-
 const currencies: Currency[] = [
   { code: "USD", flag: "/flags/us.svg" },
   { code: "EUR", flag: "/flags/eu.svg" },
