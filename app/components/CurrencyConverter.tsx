@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useEffect, useState, useTransition } from "react";
 import { ChevronDown } from "lucide-react";
+import NumberFlow from "@number-flow/react";
 
 const currencies: Currency[] = [
   { code: "USD", flag: "/flags/us.svg" },
@@ -133,34 +134,54 @@ export default function CurrencyConverter() {
     <div className="bg-white shadow-lg border border-gray-200 p-5 rounded-lg max-w-md mx-auto">
       <div className="space-y-5">
         {/* From Currency */}
-        <div className="flex items-center space-x-2">
-          <input
-            type="number"
-            value={amountFrom}
-            onChange={handleAmountChangeFrom}
-            className="border border-gray-300 p-2 rounded-lg flex-grow outline-none"
-            placeholder="Enter amount"
-          />
+        <div className="flex items-center space-x-2 relative">
+          <div className="relative flex-grow">
+            <div className="absolute inset-0 z-20 pointer-events-none">
+              <NumberFlow
+                value={Number(amountFrom)}
+                className="w-full h-full flex items-center px-2"
+              />
+            </div>
+
+            <input
+              type="number"
+              id="fromCurrency"
+              value={amountFrom}
+              onChange={handleAmountChangeFrom}
+              className="relative w-full border border-gray-300 p-2 rounded-lg outline-none bg-transparent z-10 text-white"
+              // placeholder="Enter amount"
+            />
+
+            <label
+              htmlFor="fromCurrency"
+              className="absolute inset-0 flex items-center px-2 text-gray-500 pointer-events-none"
+            >
+              {!amountFrom && ""}
+            </label>
+          </div>
+
           <div className="relative currency-dropdown">
             <button
               onClick={toggleFromDropdown}
-              className="flex items-center bg-gray-100 border border-gray-300 p-2 gap-1 rounded-lg"
+              className="flex items-center justify-between bg-gray-100 border border-gray-300 p-2 gap-1 rounded-lg w-24 h-10"
             >
-              <Image
-                src={
-                  currencies.find((c) => c.code === fromCurrency)?.flag || ""
-                }
-                alt={`${fromCurrency} flag`}
-                width={20}
-                height={16}
-                className="mr-1"
-              />
-              {fromCurrency}
+              <div className="flex items-center gap-2">
+                <Image
+                  src={
+                    currencies.find((c) => c.code === fromCurrency)?.flag || ""
+                  }
+                  alt={`${fromCurrency} flag`}
+                  width={20}
+                  height={15}
+                  className="object-cover"
+                />
+                <span className="text-sm font-semibold">{fromCurrency}</span>
+              </div>
               <ChevronDown
-                size={16}
+                size={20}
                 className={`transition-transform duration-500 ${
                   showDropdownFrom ? "transform rotate-180" : ""
-                } text-gray-700`}
+                } text-gray-700 ml-2`}
               />
             </button>
             {showDropdownFrom && (
@@ -188,31 +209,52 @@ export default function CurrencyConverter() {
 
         {/* To Currency */}
         <div className="flex items-center space-x-2">
-          <input
-            type="number"
-            value={amountTo}
-            onChange={handleAmountChangeTo}
-            className="border border-gray-300 p-2 rounded-lg flex-grow outline-none"
-            placeholder="Enter amount"
-          />
+          <div className="relative flex-grow">
+            <div className="absolute inset-0 z-20 pointer-events-none">
+              <NumberFlow
+                value={Number(amountTo)}
+                className="w-full h-full flex items-center px-2"
+              />
+            </div>
+
+            <input
+              type="number"
+              id="fromCurrency"
+              value={amountTo}
+              onChange={handleAmountChangeTo}
+              className="relative w-full border border-gray-300 p-2 rounded-lg outline-none bg-transparent z-10 text-white"
+              // placeholder="Enter amount"
+            />
+
+            <label
+              htmlFor="fromCurrency"
+              className="absolute inset-0 flex items-center px-2 text-gray-500 pointer-events-none"
+            >
+              {!amountFrom && ""}
+            </label>
+          </div>
           <div className="relative currency-dropdown">
             <button
               onClick={toggleToDropdown}
-              className="flex items-center bg-gray-100 border border-gray-300 p-2 gap-1 rounded-lg"
+              className="flex items-center bg-gray-100 border border-gray-300 p-2 gap-1 rounded-lg w-24 h-10"
             >
-              <Image
-                src={currencies.find((c) => c.code === toCurrency)?.flag || ""}
-                alt={`${toCurrency} flag`}
-                width={20}
-                height={16}
-                className="mr-1"
-              />
-              {toCurrency}
+              <div className="flex items-center gap-2">
+                <Image
+                  src={
+                    currencies.find((c) => c.code === toCurrency)?.flag || ""
+                  }
+                  alt={`${toCurrency} flag`}
+                  width={20}
+                  height={15}
+                  className="object-cover"
+                />
+                <span className="text-sm font-semibold">{toCurrency}</span>
+              </div>
               <ChevronDown
-                size={16}
+                size={20}
                 className={`transition-transform duration-500 ${
                   showDropdownTo ? "transform rotate-180" : ""
-                } text-gray-700`}
+                } text-gray-700 ml-2`}
               />
             </button>
             {showDropdownTo && (
