@@ -283,13 +283,13 @@ export default function CurrencyConverter() {
 
       {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
 
-      <button
+      {/* <button
         onClick={handleConvert}
         className="bg-black text-white p-2 rounded-lg w-full mt-5 hover:bg-gray-800 transition-colors disabled:bg-gray-400"
         disabled={isLoading || !amountFrom}
       >
         {isLoading ? "Converting..." : "Convert"}
-      </button>
+      </button> */}
 
       <p className="flex justify-center text-sm text-gray-500 mt-4">
         1 {fromCurrency} ={" "}
